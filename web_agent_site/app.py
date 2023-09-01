@@ -277,4 +277,17 @@ if __name__ == "__main__":
         user_log_dir.mkdir(parents=True, exist_ok=True)
     SHOW_ATTRS_TAB = args.attrs
 
+    all_products, product_item_dict, product_prices, attribute_to_asins = \
+        load_products(
+            filepath=DEFAULT_FILE_PATH,
+            num_products=DEBUG_PROD_SIZE
+        )
+    search_engine = init_search_engine(num_products=DEBUG_PROD_SIZE)
+    goals = get_goals(all_products, product_prices)
+    random.seed(233)
+    random.shuffle(goals)
+    weights = [goal['weight'] for goal in goals]
+
+    # from waitress import serve
+    # serve(app, host="0.0.0.0", port=3000)
     app.run(host='0.0.0.0', port=3000)

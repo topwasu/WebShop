@@ -25,7 +25,7 @@ from web_agent_site.utils import (
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
-SEARCH_RETURN_N = 50
+SEARCH_RETURN_N = 200 # TODO: might have to change this again
 PRODUCT_WINDOW = 10
 TOP_K_ATTR = 10
 
@@ -229,6 +229,7 @@ def clean_product_keys(products):
 
 def load_products(filepath, num_products=None, human_goals=True):
     # TODO: move to preprocessing step -> enforce single source of truth
+    print('Loading products!', flush=True)
     with open(filepath) as f:
         products = json.load(f)
     print('Products loaded.')

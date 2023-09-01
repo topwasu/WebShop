@@ -55,6 +55,7 @@ def get_human_goals(all_products, product_prices):
                 'attributes': attributes,
                 'price_upper': price_upper,
                 'goal_options': product['instruction_options'],
+                'price': price
             })
             for att in attributes:
                 cnt_atts[att] += 1
