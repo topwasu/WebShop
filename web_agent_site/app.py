@@ -103,6 +103,21 @@ def index(session_id):
         instruction_text=instruction_text,
     )
 
+@app.route(
+    '/products/<session_id>/<keywords>',
+    methods=['GET', 'POST']
+)
+def products(session_id, keywords):
+    keywords = convert_web_app_string_to_var('keywords', keywords)
+    top_n_products = get_top_n_product_from_keywords(
+        keywords,
+        search_engine,
+        all_products,
+        product_item_dict,
+        attribute_to_asins,
+    )
+    print(top_n_products[:5])
+    return {'products': top_n_products}
 
 @app.route(
     '/search_results/<session_id>/<keywords>/<page>',
@@ -276,6 +291,8 @@ if __name__ == "__main__":
         user_log_dir = Path('user_session_logs/mturk')
         user_log_dir.mkdir(parents=True, exist_ok=True)
     SHOW_ATTRS_TAB = args.attrs
+
+    print('Hi')
 
     all_products, product_item_dict, product_prices, attribute_to_asins = \
         load_products(
